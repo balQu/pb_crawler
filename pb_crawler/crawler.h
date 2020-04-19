@@ -2,6 +2,8 @@
 
 #include "curl/curl.h"
 
+#include <string>
+
 class crawler
 {
 private:
@@ -9,6 +11,6 @@ private:
 public:
 	crawler();
 	~crawler();
-	void crawl();
+	std::string crawl();
 
 };

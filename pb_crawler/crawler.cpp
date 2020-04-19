@@ -1,8 +1,5 @@
 #include "crawler.h"
 
-#include <string>
-#include <iostream>
-
 crawler::crawler()
 {
 	curl = curl_easy_init();
@@ -13,21 +10,28 @@ crawler::~crawler()
 	curl_easy_cleanup(curl);
 }
 
-size_t WriteCallback(void* contents, size_t size, size_t nmemb, void* userp)
+// see https://stackoverflow.com/questions/9786150/save-curl-content-result-into-a-string-in-c
+static int WriteCallback(char* data, size_t size, size_t nmemb,
+	std::string* writerData)
 {
-	((std::string*)userp)->append((char*)contents, size * nmemb);
+	writerData->append(data, size * nmemb);
 	return size * nmemb;
 }
 
-void crawler::crawl()
+std::string crawler::crawl()
 {
 	if (curl) {
 		CURLcode res;
-		std::string readBuffer;
+		std::string response; // maybe a stringstream is better?
 		curl_easy_setopt(curl, CURLOPT_URL, "https://pastebin.com/archive");
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
-		std::cout << readBuffer << "\n";
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 		res = curl_easy_perform(curl);
+		if (res != CURLE_OK)
+		{
+			//throw something; //TODO
+			return std::string { "Couldn't perform the request." };
+		}
+		return response;
 	}
 }

@@ -1,7 +1,10 @@
 #include "crawler.h"
 
+#include <iostream>
+
 int main()
 {
 	crawler crawler;
-	crawler.crawl();
+	std::string response = crawler.crawl();
+	std::cout << response << "\n";
 }
