@@ -26,7 +26,7 @@ void crawler::crawl()
 		std::string readBuffer;
 		curl_easy_setopt(curl, CURLOPT_URL, "https://pastebin.com/archive");
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-		//curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &readBuffer);
 		std::cout << readBuffer << "\n";
 		res = curl_easy_perform(curl);
 	}
