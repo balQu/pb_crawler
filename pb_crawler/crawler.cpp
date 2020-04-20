@@ -11,7 +11,7 @@ crawler::~crawler()
 }
 
 // see https://stackoverflow.com/questions/9786150/save-curl-content-result-into-a-string-in-c
-static int WriteCallback(char* data, size_t size, size_t nmemb,
+static size_t WriteCallback(char* data, size_t size, size_t nmemb,
 	std::string* writerData)
 {
 	writerData->append(data, size * nmemb);
@@ -30,8 +30,10 @@ std::string crawler::crawl()
 		if (res != CURLE_OK)
 		{
 			//throw something; //TODO
-			return std::string { "Couldn't perform the request." };
+			return std::string{ "Couldn't perform the request." };
 		}
 		return response;
 	}
+
+	return std::string{};
 }
