@@ -9,8 +9,11 @@ int main()
 
 	try
 	{
-		std::stringstream response = crawler.crawl();
-		std::cout << response.str() << "\n";
+		Parser parser{ crawler.crawl() };
+		if (parser.parse())
+		{
+			std::vector<paste_data> data = parser.getParsed_data();
+		}
 	}
 	catch (const std::exception& exc)
 	{
