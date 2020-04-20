@@ -1,39 +1,46 @@
 #include "crawler.h"
 
-crawler::crawler()
+#include <exception>
+
+Crawler::Crawler()
 {
 	curl = curl_easy_init();
 }
 
-crawler::~crawler()
+Crawler::~Crawler()
 {
 	curl_easy_cleanup(curl);
 }
 
 // see https://stackoverflow.com/questions/9786150/save-curl-content-result-into-a-string-in-c
 static size_t WriteCallback(char* data, size_t size, size_t nmemb,
-	std::string* writerData)
+	std::stringstream* writerData)
 {
-	writerData->append(data, size * nmemb);
+	writerData->write(data, size * nmemb);
 	return size * nmemb;
 }
 
-std::string crawler::crawl()
+std::stringstream Crawler::crawl()
 {
-	if (curl) {
-		CURLcode res;
-		std::string response; // maybe a stringstream is better?
-		curl_easy_setopt(curl, CURLOPT_URL, "https://pastebin.com/archive");
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
-		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
-		res = curl_easy_perform(curl);
-		if (res != CURLE_OK)
-		{
-			//throw something; //TODO
-			return std::string{ "Couldn't perform the request." };
-		}
-		return response;
+	if (url.empty())
+	{
+		throw std::exception{ "Url is missing." };
 	}
 
-	return std::string{};
+	if (!curl)
+	{
+		throw std::exception{ "Couldn't initialize cURL." };
+	}
+
+	CURLcode res;
+	std::stringstream response;
+	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+	res = curl_easy_perform(curl);
+	if (res != CURLE_OK)
+	{
+		throw std::exception{ "Couldn't perform the request." };
+	}
+	return response;
 }

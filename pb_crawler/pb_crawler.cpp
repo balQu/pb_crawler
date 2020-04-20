@@ -1,10 +1,19 @@
 #include "crawler.h"
+#include "parser.h"
 
 #include <iostream>
 
 int main()
 {
-	crawler crawler;
-	std::string response = crawler.crawl();
-	std::cout << response << "\n";
+	Crawler crawler{ "https://pastebin.com/archive" };
+
+	try
+	{
+		std::stringstream response = crawler.crawl();
+		std::cout << response.str() << "\n";
+	}
+	catch (const std::exception& exc)
+	{
+		exc.what();
+	}
 }

@@ -3,14 +3,17 @@
 #include "curl/curl.h"
 
 #include <string>
+#include <sstream>
 
-class crawler
+class Crawler
 {
 private:
 	CURL* curl;
+	std::string url;
 public:
-	crawler();
-	~crawler();
-	std::string crawl();
-
+	Crawler();
+	Crawler(std::string url) : Crawler() { this->url = url; }
+	~Crawler();
+	std::stringstream crawl();
+	void setUrl(std::string url) { this->url = url; }
 };
