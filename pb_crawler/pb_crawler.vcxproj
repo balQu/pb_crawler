@@ -146,6 +146,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="crawler.cpp" />
+    <ClCompile Include="parser.cpp" />
     <ClCompile Include="pb_crawler.cpp" />
   </ItemGroup>
   <ItemGroup>
