@@ -356,3 +356,4 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 external/curl-7.69.1
+external/cURL_binary
