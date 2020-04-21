@@ -18,12 +18,14 @@ bool Parser::parse()
 			return true;
 		}
 
-		auto id_pos = line.find("<a href=\"");
+		std::string openedTagA = "<a href=\"";
+		auto id_pos = line.find(openedTagA);
 		if (id_pos != std::string::npos)
 		{
 			// get ID of paste
-			auto id_end = line.find("\">");
-			std::string id = line.substr(id_pos + 10, id_end - (id_pos + 10));
+			std::string endOfTag = "\">";
+			auto id_end = line.find(endOfTag);
+			std::string id = line.substr(id_pos + openedTagA.length() + 1, id_end - (id_pos + openedTagA.length() + 1));
 
 			// filter out obscure html tags
 			if (id.find("<") != std::string::npos)
@@ -33,7 +35,7 @@ bool Parser::parse()
 
 			// get title of paste
 			auto title_end = line.find("</a>");
-			std::string title = line.substr(id_end + 2, title_end - (id_end + 2));
+			std::string title = line.substr(id_end + endOfTag.length(), title_end - (id_end + endOfTag.length()));
 
 			// TODO: add elapsed_time and paste_language
 			parsed_data.emplace_back(paste_data{ id, title, "soon", "some lang" });
