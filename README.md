@@ -8,6 +8,6 @@ The Visual Studio project is set up that it searches the .lib and .dll files und
 For example, if using Debug configuration:
 "$(ProjectDir)\external\cURL_binary\Debug".
 
-The source of cURL will be searched in "pb_crawler_git\external\curl-7.69.1".
+The source of cURL will be searched in "pb_crawler_git\external\curl".
 
 You have to compile cURL with SSL.
