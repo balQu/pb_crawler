@@ -3,6 +3,8 @@
 
 #include <iostream>
 
+#define DEBUG
+
 int main()
 {
 	Crawler crawler{ "https://pastebin.com/archive" };
@@ -26,5 +28,8 @@ int main()
 	{
 		crawler.setUrl("https://pastebin.com/raw/" + d.id);
 		raw_pastes.emplace_back(crawler.crawl());
+#ifdef DEBUG
+		std::cout << "Added: [" << d.paste_language << "] - " << d.title << " (" << d.elapsed_time << ") /" << d.id << "\n";
+#endif // DEBUG
 	}
 }
