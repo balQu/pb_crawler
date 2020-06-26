@@ -357,3 +357,4 @@ MigrationBackup/
 .ionide/
 external/curl-7.69.1
 external/cURL_binary
+external
