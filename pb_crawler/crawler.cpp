@@ -20,7 +20,7 @@ static size_t WriteCallback(char* data, size_t size, size_t nmemb,
 	return size * nmemb;
 }
 
-std::stringstream Crawler::crawl()
+std::stringstream Crawler::crawl() const
 {
 	if (url.empty())
 	{

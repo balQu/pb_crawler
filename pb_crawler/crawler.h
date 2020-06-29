@@ -14,6 +14,6 @@ public:
 	Crawler();
 	Crawler(std::string url) : Crawler() { this->url = url; }
 	~Crawler();
-	std::stringstream crawl();
+	std::stringstream crawl() const;
 	void setUrl(std::string url) { this->url = url; }
 };
