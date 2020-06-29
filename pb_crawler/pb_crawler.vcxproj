@@ -154,11 +154,13 @@ XCopy $(ProjectDir)..\external\mariadb-connector-c-3.1\bin\libmariadb\$(Configur
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="crawler.cpp" />
+    <ClCompile Include="database.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="pb_crawler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crawler.h" />
+    <ClInclude Include="database.h" />
     <ClInclude Include="parser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
