@@ -6,7 +6,6 @@
 #include <chrono>
 #include <thread>
 
-#define DEBUG
 
 static constexpr int waittime = 60;
 static std::unordered_set<std::string> visited_ids;
@@ -18,9 +17,9 @@ int main()
 
 	while (true)
 	{
-#ifdef DEBUG
+#ifdef _DEBUG
 		std::cout << "refreshing...\n";
-#endif // DEBUG
+#endif // _DEBUG
 
 		try
 		{
