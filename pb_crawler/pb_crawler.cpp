@@ -99,7 +99,6 @@ int main()
 #endif // _DEBUG
 
 		data = getRecentPastes(crawler);
-		std::vector<std::stringstream> raw_pastes;
 
 		for (const auto& d : data)
 		{
@@ -108,7 +107,6 @@ int main()
 			{
 				continue;
 			}
-			raw_pastes.emplace_back();
 
 			auto content_string = content.str();
 			content_string = replaceSingleQuote(content_string);
