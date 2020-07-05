@@ -100,7 +100,7 @@ int main()
 
 		data = getRecentPastes(crawler);
 
-		for (const auto& d : data)
+		for (auto& d : data)
 		{
 			auto content = getPasteContent(d, crawler);
 			if (content.str() == "")
@@ -110,6 +110,7 @@ int main()
 
 			auto content_string = content.str();
 			content_string = replaceSingleQuote(content_string);
+			d.title = replaceSingleQuote(d.title);
 
 			if (findPaste(db, d.id))
 			{
