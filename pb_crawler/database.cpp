@@ -1,50 +1,55 @@
 #include "database.h"
 
-bool Database::connect(const std::string& host, const std::string& username, const std::string& password, const std::string& database_name)
+namespace db
 {
-	if (mysql_real_connect(connection, host.c_str(), username.c_str(), password.c_str(), database_name.c_str(), 33060, NULL, 0) == NULL)
+	bool Database::connect() const
 	{
-		auto error = mysql_error(connection);
-		fprintf(stderr, "%s\n", error);
-		mysql_close(connection);
-		exit(1);
-		return false;
-	}
-	return true;
-}
-
-std::string Database::query(const std::string& query)
-{
-	if (mysql_query(connection, query.c_str()))
-	{
-		auto error = mysql_error(connection);
-		if (error != nullptr)
+		if (mysql_real_connect(connection, db_config.host.c_str(),
+			db_config.username.c_str(), db_config.password.c_str(),
+			db_config.database_name.c_str(), 33060, nullptr, 0) == nullptr)
 		{
+			auto error = mysql_error(connection);
 			fprintf(stderr, "%s\n", error);
-			return "";
+			mysql_close(connection);
+			exit(1);
+			return false;
 		}
+		return true;
 	}
 
-	MYSQL_RES* result = mysql_store_result(connection);
-	if (!result)
+	std::string Database::query(const std::string& query) const
 	{
-		return  "Executed query";
-	}
-
-	int num_fields = mysql_num_fields(result);
-	MYSQL_ROW row;
-	std::string query_result;
-
-	while ((row = mysql_fetch_row(result)))
-	{
-		for (int i = 0; i < num_fields; i++)
+		if (mysql_query(connection, query.c_str()))
 		{
-			if (row[i])
+			auto error = mysql_error(connection);
+			if (error != nullptr)
 			{
-				query_result += row[i];
+				fprintf(stderr, "%s\n", error);
+				return "";
 			}
 		}
+
+		MYSQL_RES* result = mysql_store_result(connection);
+		if (!result)
+		{
+			return  "Executed query";
+		}
+
+		int num_fields = mysql_num_fields(result);
+		MYSQL_ROW row;
+		std::string query_result;
+
+		while ((row = mysql_fetch_row(result)))
+		{
+			for (int i = 0; i < num_fields; i++)
+			{
+				if (row[i])
+				{
+					query_result += row[i];
+				}
+			}
+		}
+		mysql_free_result(result);
+		return query_result;
 	}
-	mysql_free_result(result);
-	return query_result;
-}
+} // namespace db

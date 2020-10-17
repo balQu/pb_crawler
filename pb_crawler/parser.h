@@ -15,12 +15,11 @@ struct paste_data
 class Parser
 {
 private:
-	std::vector<paste_data> parsed_data;
-	std::stringstream html_stream;
+	std::vector<paste_data> parsed_data{};
+	std::stringstream html_stream{};
 public:
-	Parser(){}
-	Parser(std::stringstream stream) : html_stream(std::move(stream)) {}
-	std::vector<paste_data> getParsed_data() { return parsed_data; }
+	Parser(std::stringstream stream) : html_stream{ std::move(stream) } {}
+	std::vector<paste_data> getParsed_data() const { return parsed_data; }
 	void setHtmlStream(std::stringstream stream) { html_stream = std::move(stream); }
 	bool parse();
 };

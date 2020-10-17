@@ -2,11 +2,6 @@
 
 #include <exception>
 
-Crawler::Crawler()
-{
-	curl = curl_easy_init();
-}
-
 Crawler::~Crawler()
 {
 	curl_easy_cleanup(curl);
@@ -32,6 +27,7 @@ std::stringstream Crawler::crawl() const
 		throw std::exception{ "Couldn't initialize cURL." };
 	}
 
+	#pragma warning(suppress : 26812) // curl still uses enum instead of enum class (C lib)
 	CURLcode res;
 	std::stringstream response;
 	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());

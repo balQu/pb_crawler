@@ -57,7 +57,7 @@ std::string replaceSingleQuote(std::string& content)
 	return content;
 }
 
-bool findPaste(Database& db, const std::string& id)
+bool findPaste(db::Database& db, const std::string& id)
 {
 	std::string result = "SELECT * FROM pastes WHERE id=\"" + id + "\"";
 	if (!db.query(result).empty())
@@ -67,7 +67,7 @@ bool findPaste(Database& db, const std::string& id)
 	return false;
 }
 
-bool addPaste(const paste_data& d, Database& db, const std::string& content)
+bool addPaste(const paste_data& d, db::Database& db, const std::string& content)
 {
 	std::string insert = "INSERT INTO pastes VALUES('" + d.id + "', '" + d.paste_language + "', '" + d.title + "', '" + content + "')";
 	auto result = db.query(insert);
@@ -80,8 +80,9 @@ bool addPaste(const paste_data& d, Database& db, const std::string& content)
 
 int main()
 {
-	Database db;
-	if (!db.connect("localhost", "root", "", "pastes"))
+	db::config my_db_conf{ "localhost", "root", "", "pastes" };
+	db::Database db{ my_db_conf };
+	if (!db.connect())
 	{
 		std::cout << "Couldn't connect to the database.\n";
 		return -1;

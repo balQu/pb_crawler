@@ -7,6 +7,8 @@ bool Parser::parse()
 {
 	// set input position at the start of our paste table
 	auto table_position = html_stream.str().find("<table");
+
+	// TODO: maybe use a string-view instead of mutating the sstream
 	html_stream.seekg(table_position);
 
 	std::string line;
@@ -25,6 +27,7 @@ bool Parser::parse()
 			// get ID of paste
 			std::string endOfTag = "\">";
 			auto id_end = line.find(endOfTag);
+			id_end = line.find(endOfTag, id_end + 1);
 			std::string id = line.substr(id_pos + openedTagA.length() + 1, id_end - (id_pos + openedTagA.length() + 1));
 
 			// filter out obscure html tags
@@ -44,6 +47,7 @@ bool Parser::parse()
 			auto time_end = next_line.find("ago");
 			std::string timestamp = next_line.substr(time_start + 2, time_end - time_start + 1);
 
+
 			// get paste language
 			std::getline(html_stream, next_line);
 			auto language_start = next_line.find("/archive");
@@ -52,9 +56,7 @@ bool Parser::parse()
 			auto language_end = next_line.find("</a>");
 			std::string paste_language = next_line.substr(language_start + 2, language_end - language_start - 2);
 
-
-
-			// TODO: add elapsed_time and paste_language
+			// TODO: add correct timestamp instead of a dumb "elapsed time" stamp
 			parsed_data.emplace_back(paste_data{ id, title, timestamp, paste_language });
 		}
 	}
