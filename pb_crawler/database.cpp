@@ -2,6 +2,12 @@
 
 namespace db
 {
+	Database& Database::getInstance()
+	{
+		static Database instance;
+		return instance;
+	}
+
 	bool Database::connect() const
 	{
 		if (mysql_real_connect(connection, db_config.host.c_str(),

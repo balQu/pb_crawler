@@ -81,7 +81,8 @@ bool addPaste(const paste_data& d, db::Database& db, const std::string& content)
 int main()
 {
 	db::config my_db_conf{ "localhost", "root", "", "pastes" };
-	db::Database db{ my_db_conf };
+	db::Database db = db::Database::getInstance();
+	db.setConfig(my_db_conf);
 	if (!db.connect())
 	{
 		std::cout << "Couldn't connect to the database.\n";
