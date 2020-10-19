@@ -57,20 +57,20 @@ std::string replaceSingleQuote(std::string& content)
 	return content;
 }
 
-bool findPaste(db::Database& db, const std::string& id)
+bool findPaste(const std::string& id)
 {
 	std::string result = "SELECT * FROM pastes WHERE id=\"" + id + "\"";
-	if (!db.query(result).empty())
+	if (!db::Database::getInstance().query(result).empty())
 	{
 		return true;
 	}
 	return false;
 }
 
-bool addPaste(const paste_data& d, db::Database& db, const std::string& content)
+bool addPaste(const paste_data& d, const std::string& content)
 {
 	std::string insert = "INSERT INTO pastes VALUES('" + d.id + "', '" + d.paste_language + "', '" + d.title + "', '" + content + "')";
-	auto result = db.query(insert);
+	auto result = db::Database::getInstance().query(insert);
 	if (result.empty())
 	{
 		return false;
@@ -81,15 +81,14 @@ bool addPaste(const paste_data& d, db::Database& db, const std::string& content)
 int main()
 {
 	db::config my_db_conf{ "localhost", "root", "", "pastes" };
-	db::Database db = db::Database::getInstance();
-	db.setConfig(my_db_conf);
-	if (!db.connect())
+	db::Database::getInstance().setConfig(my_db_conf);
+	if (!db::Database::getInstance().connect())
 	{
 		std::cout << "Couldn't connect to the database.\n";
 		return -1;
 	}
 
-	std::cout << "There are currently " << db.query("SELECT COUNT(*) from pastes") << " pastes in the database.\n\n";
+	std::cout << "There are currently " << db::Database::getInstance().query("SELECT COUNT(*) from pastes") << " pastes in the database.\n\n";
 
 	Crawler crawler{ "https://pastebin.com/archive" };
 	std::vector<paste_data> data;
@@ -114,12 +113,12 @@ int main()
 			content_string = replaceSingleQuote(content_string);
 			d.title = replaceSingleQuote(d.title);
 
-			if (findPaste(db, d.id))
+			if (findPaste(d.id))
 			{
 				continue;
 			}
 
-			if (addPaste(d, db, content_string))
+			if (addPaste(d, content_string))
 			{
 				std::cout << "Added paste (id: " << d.id << ") to database.\n";
 			}

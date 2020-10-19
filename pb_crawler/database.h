@@ -28,13 +28,15 @@ namespace db
 	class Database
 	{
 	private:
-		Database() {}
-		Database(const config& db_config) : db_config{db_config} {}
+		Database() = default;
 
 		MYSQL* connection{ mysql_init(nullptr) };
 		config db_config{};
 
 	public:
+		Database(const Database& other) = delete;
+		Database& operator=(const Database& other) = delete;
+
 		void setConfig(const config& db_config) { this->db_config = db_config; }
 		bool connect() const;
 		std::string query(const std::string& query) const;
