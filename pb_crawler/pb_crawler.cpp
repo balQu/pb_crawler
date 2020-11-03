@@ -1,49 +1,11 @@
-#include "crawler.h"
-#include "parser.h"
 #include "database.h"
+#include "pb_crawler.h"
 
 #include <iostream>
-#include <unordered_set>
 #include <chrono>
 #include <thread>
 
 static constexpr int waittime = 60;
-static std::unordered_set<std::string> visited_ids;
-
-std::vector<paste_data> getRecentPastes(Crawler& crawler)
-{
-	std::vector<paste_data> data;
-	try
-	{
-		crawler.setUrl("https://pastebin.com/archive");
-		Parser parser{ crawler.crawl() };
-		if (parser.parse())
-		{
-			data = parser.getParsed_data();
-		}
-		return data;
-	}
-	catch (const std::exception& exc)
-	{
-		std::cout << exc.what() << "\n";
-		return {};
-	}
-}
-
-std::stringstream getPasteContent(const paste_data& d, Crawler& crawler)
-{
-	auto result = visited_ids.find(d.id);
-	if (result != std::end(visited_ids))
-	{
-		return {};
-	}
-	crawler.setUrl("https://pastebin.com/raw/" + d.id);
-	visited_ids.insert(d.id);
-#ifdef _DEBUG
-	std::cout << "Found: [" << d.paste_language << "] - " << d.title << " (" << d.elapsed_time << ") /" << d.id << "\n";
-#endif // DEBUG
-	return crawler.crawl();
-}
 
 std::string replaceSingleQuote(std::string& content)
 {
@@ -67,9 +29,9 @@ bool findPaste(const std::string& id)
 	return false;
 }
 
-bool addPaste(const paste_data& d, const std::string& content)
+bool addPaste(const paste_data_content& d)
 {
-	std::string insert = "INSERT INTO pastes VALUES('" + d.id + "', '" + d.paste_language + "', '" + d.title + "', '" + content + "')";
+	std::string insert = "INSERT INTO pastes VALUES('" + d.id + "', '" + d.paste_language + "', '" + d.title + "', '" + d.content + "')";
 	auto result = db::Database::getInstance().query(insert);
 	if (result.empty())
 	{
@@ -78,20 +40,19 @@ bool addPaste(const paste_data& d, const std::string& content)
 	return true;
 }
 
-int main2()
+int main()
 {
 	db::config my_db_conf{ "localhost", "root", "", "pastes" };
 	db::Database::getInstance().setConfig(my_db_conf);
 	if (!db::Database::getInstance().connect())
 	{
 		std::cout << "Couldn't connect to the database.\n";
-		return -1;
+		return 1;
 	}
 
 	std::cout << "There are currently " << db::Database::getInstance().query("SELECT COUNT(*) from pastes") << " pastes in the database.\n\n";
 
-	Crawler crawler{ "https://pastebin.com/archive" };
-	std::vector<paste_data> data;
+	pb_crawler crawler;
 
 	while (true)
 	{
@@ -99,31 +60,31 @@ int main2()
 		std::cout << "refreshing...\n";
 #endif // _DEBUG
 
-		data = getRecentPastes(crawler);
+		auto pastes = crawler.crawlPastes();
 
-		for (auto& d : data)
+		for(auto& p : pastes)
 		{
-			auto content = getPasteContent(d, crawler);
-			if (content.str() == "")
+
+			// TODO: early return if id is already visited (keep track in a vector<string> visited ids?)
+
+			if (p.content == "")
 			{
 				continue;
 			}
 
-			auto content_string = content.str();
-			content_string = replaceSingleQuote(content_string);
-			d.title = replaceSingleQuote(d.title);
+			p.content = replaceSingleQuote(p.content);
+			p.title = replaceSingleQuote(p.title);
 
-			if (findPaste(d.id))
+			if (findPaste(p.id))
 			{
 				continue;
 			}
 
-			if (addPaste(d, content_string))
+			if (addPaste(p))
 			{
-				std::cout << "Added paste (id: " << d.id << ") to database.\n";
+				std::cout << "Added paste (id: " << p.id << ") to database.\n";
 			}
 		}
 		std::this_thread::sleep_for(std::chrono::seconds{ waittime });
 	}
-	return 0;
 }

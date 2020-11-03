@@ -18,9 +18,6 @@
     <ClCompile Include="crawler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pb_crawler.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,7 +27,7 @@
     <ClCompile Include="pb_crawler_impl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
+    <ClCompile Include="pb_crawler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
