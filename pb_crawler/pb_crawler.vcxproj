@@ -158,6 +158,7 @@ XCopy $(ProjectDir)..\external\mariadb-connector-c-3.1\bin\libmariadb\$(Configur
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="pb_crawler.cpp" />
     <ClCompile Include="pb_crawler_impl.cpp" />
+    <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crawler.h" />

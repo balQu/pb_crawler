@@ -78,7 +78,7 @@ bool addPaste(const paste_data& d, const std::string& content)
 	return true;
 }
 
-int main()
+int main2()
 {
 	db::config my_db_conf{ "localhost", "root", "", "pastes" };
 	db::Database::getInstance().setConfig(my_db_conf);
@@ -125,4 +125,5 @@ int main()
 		}
 		std::this_thread::sleep_for(std::chrono::seconds{ waittime });
 	}
+	return 0;
 }
