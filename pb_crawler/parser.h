@@ -6,10 +6,10 @@
 
 struct paste_data
 {
-	std::string id;
-	std::string title;
-	std::string elapsed_time;
-	std::string paste_language;
+	std::string id{};
+	std::string title{};
+	std::string elapsed_time{};
+	std::string paste_language{};
 };
 
 class Parser
