@@ -60,6 +60,7 @@ int main()
 		std::cout << "refreshing...\n";
 #endif // _DEBUG
 
+		std::cout << "fetching recent pastes...\n";
 		auto pastes = crawler.crawlPastes();
 
 		for(auto& p : pastes)
@@ -85,6 +86,7 @@ int main()
 				std::cout << "Added paste (id: " << p.id << ") to database.\n";
 			}
 		}
+		std::cout << "waiting " << waittime << " seconds...\n";
 		std::this_thread::sleep_for(std::chrono::seconds{ waittime });
 	}
 }
