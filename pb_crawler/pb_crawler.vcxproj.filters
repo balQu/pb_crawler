@@ -24,7 +24,7 @@
     <ClCompile Include="database.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pb_crawler_impl.cpp">
+    <ClCompile Include="example_usage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pb_crawler.cpp">
