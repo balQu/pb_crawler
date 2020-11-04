@@ -13,14 +13,14 @@ std::stringstream pb_crawler::getPasteContent(const paste_data& d)
 std::vector<paste_data_content> pb_crawler::crawlPastes()
 {
 
-	std::vector<paste_data> somePastes;
+	std::vector<paste_data> foundPastes;
 	try
 	{
 		crawler.setUrl("https://pastebin.com/archive");
 		Parser parser{ crawler.crawl() };
 		if (parser.parse())
 		{
-			somePastes = parser.getParsed_data();
+			foundPastes = parser.getParsed_data();
 		}
 	}
 	catch (const std::exception& exc)
@@ -29,7 +29,7 @@ std::vector<paste_data_content> pb_crawler::crawlPastes()
 		return {};
 	}
 
-	for (const auto& p : somePastes)
+	for (const auto& p : foundPastes)
 	{
 		data.emplace_back(paste_data_content{ p.id, p.title, p.paste_language, p.elapsed_time, getPasteContent(p).str() });
 	}
