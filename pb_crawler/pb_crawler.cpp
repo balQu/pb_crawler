@@ -13,7 +13,7 @@ std::stringstream pb_crawler::getPasteContent(const paste_data& d)
 std::vector<paste_data_content> pb_crawler::crawlPastes()
 {
 
-	std::vector<paste_data> foundPastes;
+	std::vector<paste_data> foundPastes{};
 	try
 	{
 		crawler.setUrl("https://pastebin.com/archive");

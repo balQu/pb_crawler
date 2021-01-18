@@ -11,7 +11,7 @@ bool Parser::parse()
 	// TODO: maybe use a string-view instead of mutating the sstream
 	html_stream.seekg(table_position);
 
-	std::string line;
+	std::string line{};
 	while (std::getline(html_stream, line))
 	{
 		// reached end of paste table
@@ -41,7 +41,7 @@ bool Parser::parse()
 			std::string title = line.substr(id_end + endOfTag.length(), title_end - (id_end + endOfTag.length()));
 
 			// get paste time
-			std::string next_line;
+			std::string next_line{};
 			std::getline(html_stream, next_line);
 			auto time_start = next_line.find("\">");
 			auto time_end = next_line.find("ago");

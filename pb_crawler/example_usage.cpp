@@ -42,8 +42,7 @@ bool addPaste(const paste_data_content& d)
 
 int main()
 {
-	db::config my_db_conf{ "localhost", "root", "", "pastes" };
-	db::Database::getInstance().setConfig(my_db_conf);
+	db::Database::getInstance().setConfig({ "localhost", "root", "", "pastes" });
 	if (!db::Database::getInstance().connect())
 	{
 		std::cout << "Couldn't connect to the database.\n";
@@ -52,7 +51,7 @@ int main()
 
 	std::cout << "There are currently " << db::Database::getInstance().query("SELECT COUNT(*) from pastes") << " pastes in the database.\n\n";
 
-	pb_crawler crawler;
+	pb_crawler crawler{};
 
 	while (true)
 	{

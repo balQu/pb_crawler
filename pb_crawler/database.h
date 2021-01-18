@@ -8,16 +8,10 @@ namespace db
 {
 	struct config
 	{
-		std::string host;
-		std::string username;
-		std::string password;
-		std::string database_name;
-
-		config() = default;
-		config(const std::string& host, const std::string& username,
-			const std::string& password,
-			const std::string& database_name) : host{ host }, username{ username },
-			password{ password }, database_name{ database_name } { }
+		std::string host{};
+		std::string username{};
+		std::string password{};
+		std::string database_name{};
 	};
 
 

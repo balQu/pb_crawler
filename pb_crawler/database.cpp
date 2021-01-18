@@ -4,7 +4,7 @@ namespace db
 {
 	Database& Database::getInstance()
 	{
-		static Database instance;
+		static Database instance{};
 		return instance;
 	}
 
@@ -42,8 +42,8 @@ namespace db
 		}
 
 		int num_fields = mysql_num_fields(result);
-		MYSQL_ROW row;
-		std::string query_result;
+		MYSQL_ROW row{};
+		std::string query_result{};
 
 		while ((row = mysql_fetch_row(result)))
 		{
