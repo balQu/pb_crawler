@@ -1,5 +1,7 @@
 #include "database.h"
 
+constexpr int MySqlPort = 33060;
+
 namespace db
 {
 	Database& Database::getInstance()
@@ -12,7 +14,7 @@ namespace db
 	{
 		if (mysql_real_connect(connection, db_config.host.c_str(),
 			db_config.username.c_str(), db_config.password.c_str(),
-			db_config.database_name.c_str(), 33060, nullptr, 0) == nullptr)
+			db_config.database_name.c_str(), MySqlPort, nullptr, 0) == nullptr)
 		{
 			auto error = mysql_error(connection);
 			fprintf(stderr, "%s\n", error);
