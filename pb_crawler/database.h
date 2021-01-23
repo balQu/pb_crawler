@@ -31,7 +31,7 @@ namespace db
 		Database(const Database& other) = delete;
 		Database& operator=(const Database& other) = delete;
 
-		void setConfig(const config& db_config) { this->db_config = db_config; }
+		void setConfig(const config& db_config) noexcept { this->db_config = db_config; }
 		bool connect() const;
 		std::string query(const std::string& query) const;
 		static Database& getInstance();

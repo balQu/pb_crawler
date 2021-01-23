@@ -2,13 +2,13 @@
 
 namespace db
 {
-	Database& Database::getInstance()
+	auto Database::getInstance() -> Database&
 	{
 		static Database instance{};
 		return instance;
 	}
 
-	bool Database::connect() const
+	auto Database::connect() const -> bool
 	{
 		if (mysql_real_connect(connection, db_config.host.c_str(),
 			db_config.username.c_str(), db_config.password.c_str(),
@@ -23,7 +23,7 @@ namespace db
 		return true;
 	}
 
-	std::string Database::query(const std::string& query) const
+	auto Database::query(const std::string& query) const -> std::string
 	{
 		if (mysql_query(connection, query.c_str()))
 		{
@@ -41,13 +41,13 @@ namespace db
 			return  "Executed query";
 		}
 
-		int num_fields = mysql_num_fields(result);
+		auto num_fields = mysql_num_fields(result);
 		MYSQL_ROW row{};
 		std::string query_result{};
 
 		while ((row = mysql_fetch_row(result)))
 		{
-			for (int i = 0; i < num_fields; i++)
+			for (unsigned int i = 0; i < num_fields; ++i)
 			{
 				if (row[i])
 				{

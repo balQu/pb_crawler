@@ -3,14 +3,14 @@
 #include <iostream>
 
 
-std::stringstream pb_crawler::getPasteContent(const paste_data& d)
+auto pb_crawler::getPasteContent(const paste_data& d) -> std::stringstream
 {
 	crawler.setUrl("https://pastebin.com/raw/" + d.id);
 	return crawler.crawl();
 }
 
 
-std::vector<paste_data_content> pb_crawler::crawlPastes()
+auto pb_crawler::crawlPastes() -> std::vector<paste_data_content>
 {
 
 	std::vector<paste_data> foundPastes{};

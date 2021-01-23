@@ -3,7 +3,7 @@
 #include <exception>
 #include <iostream>
 
-bool Parser::parse()
+auto Parser::parse() -> bool
 {
 	// set input position at the start of our paste table
 	auto table_position = html_stream.str().find("<table");
@@ -31,7 +31,7 @@ bool Parser::parse()
 			std::string id = line.substr(id_pos + openedTagA.length() + 1, id_end - (id_pos + openedTagA.length() + 1));
 
 			// filter out obscure html tags
-			if (id.find("<") != std::string::npos)
+			if (id.find('<') != std::string::npos)
 			{
 				continue;
 			}
