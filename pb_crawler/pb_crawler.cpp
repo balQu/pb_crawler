@@ -2,10 +2,13 @@
 
 #include <iostream>
 
+constexpr auto PasteBinUrlRaw = "https://pastebin.com/raw/";
+constexpr auto PasteBinUrlArchive = "https://pastebin.com/archive";
+
 
 auto pb_crawler::getPasteContent(const paste_data& d) -> std::stringstream
 {
-	crawler.setUrl("https://pastebin.com/raw/" + d.id);
+	crawler.setUrl(PasteBinUrlRaw + d.id);
 	return crawler.crawl();
 }
 
@@ -16,7 +19,7 @@ auto pb_crawler::crawlPastes() -> std::vector<paste_data_content>
 	std::vector<paste_data> foundPastes{};
 	try
 	{
-		crawler.setUrl("https://pastebin.com/archive");
+		crawler.setUrl(PasteBinUrlArchive);
 		Parser parser{ crawler.crawl() };
 		if (parser.parse())
 		{
