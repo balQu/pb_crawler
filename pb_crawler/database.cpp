@@ -19,7 +19,6 @@ namespace db
 			auto error = mysql_error(connection);
 			fprintf(stderr, "%s\n", error);
 			mysql_close(connection);
-			exit(1);
 			return false;
 		}
 		return true;
