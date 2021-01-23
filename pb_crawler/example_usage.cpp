@@ -1,25 +1,14 @@
 #include "database.h"
 #include "pb_crawler.h"
 
-#include <iostream>
+#include <algorithm>
 #include <chrono>
+#include <iostream>
 #include <thread>
 
 static constexpr int waittime = 60;
 
-std::string replaceSingleQuote(std::string& content)
-{
-	auto pos = content.find('\'');
-	while (pos != std::string::npos)
-	{
-		content.replace(pos, 1, "\"");
-		pos = content.find('\'');
-	}
-
-	return content;
-}
-
-bool findPaste(const std::string& id)
+auto findPaste(const std::string& id) -> bool
 {
 	std::string result = "SELECT * FROM pastes WHERE id=\"" + id + "\"";
 	if (!db::Database::getInstance().query(result).empty())
@@ -29,7 +18,7 @@ bool findPaste(const std::string& id)
 	return false;
 }
 
-bool addPaste(const paste_data_content& d)
+auto addPaste(const paste_data_content& d) -> bool
 {
 	std::string insert = "INSERT INTO pastes VALUES('" + d.id + "', '" + d.paste_language + "', '" + d.title + "', '" + d.content + "')";
 	auto result = db::Database::getInstance().query(insert);
@@ -40,7 +29,7 @@ bool addPaste(const paste_data_content& d)
 	return true;
 }
 
-int main()
+auto main() -> int
 {
 	db::Database::getInstance().setConfig({ "localhost", "root", "", "pastes" });
 	if (!db::Database::getInstance().connect())
@@ -67,13 +56,13 @@ int main()
 
 			// TODO: early return if id is already visited (keep track in a vector<string> visited ids?)
 
-			if (p.content == "")
+			if (p.content.empty())
 			{
 				continue;
 			}
 
-			p.content = replaceSingleQuote(p.content);
-			p.title = replaceSingleQuote(p.title);
+			std::replace(std::begin(p.content), std::end(p.content), '\'', '\"'); 
+			std::replace(std::begin(p.title), std::end(p.title), '\'', '\"'); 
 
 			if (findPaste(p.id))
 			{
