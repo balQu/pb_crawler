@@ -6,7 +6,7 @@
 #include <iostream>
 #include <thread>
 
-static constexpr int waittime = 60;
+static constexpr std::chrono::seconds waittime{ 60 };
 
 auto findPaste(const std::string& id) -> bool
 {
@@ -61,8 +61,8 @@ auto main() -> int
 				continue;
 			}
 
-			std::replace(std::begin(p.content), std::end(p.content), '\'', '\"'); 
-			std::replace(std::begin(p.title), std::end(p.title), '\'', '\"'); 
+			std::replace(std::begin(p.content), std::end(p.content), '\'', '\"');
+			std::replace(std::begin(p.title), std::end(p.title), '\'', '\"');
 
 			if (findPaste(p.id))
 			{
@@ -74,7 +74,7 @@ auto main() -> int
 				std::cout << "Added paste (id: " << p.id << ") to database.\n";
 			}
 		}
-		std::cout << "waiting " << waittime << " seconds...\n";
-		std::this_thread::sleep_for(std::chrono::seconds{ waittime });
+		std::cout << "waiting " << waittime.count() << " seconds...\n";
+		std::this_thread::sleep_for(waittime);
 	}
 }
