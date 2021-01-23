@@ -10,23 +10,16 @@ static constexpr std::chrono::seconds waittime{ 60 };
 
 auto findPaste(const std::string& id) -> bool
 {
-	std::string result = "SELECT * FROM pastes WHERE id=\"" + id + "\"";
-	if (!db::Database::getInstance().query(result).empty())
-	{
-		return true;
-	}
-	return false;
+	std::string sql_query = "SELECT * FROM pastes WHERE id=\"" + id + "\"";
+	auto result = db::Database::getInstance().query(sql_query);
+	return !result.empty();
 }
 
 auto addPaste(const paste_data_content& d) -> bool
 {
-	std::string insert = "INSERT INTO pastes VALUES('" + d.id + "', '" + d.paste_language + "', '" + d.title + "', '" + d.content + "')";
-	auto result = db::Database::getInstance().query(insert);
-	if (result.empty())
-	{
-		return false;
-	}
-	return true;
+	std::string sql_insert = "INSERT INTO pastes VALUES('" + d.id + "', '" + d.paste_language + "', '" + d.title + "', '" + d.content + "')";
+	auto result = db::Database::getInstance().query(sql_insert);
+	return !result.empty();
 }
 
 auto main() -> int
@@ -77,4 +70,6 @@ auto main() -> int
 		std::cout << "waiting " << waittime.count() << " seconds...\n";
 		std::this_thread::sleep_for(waittime);
 	}
+
+	return 0;
 }

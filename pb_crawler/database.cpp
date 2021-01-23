@@ -1,5 +1,7 @@
 #include "database.h"
 
+#include <iostream>
+
 constexpr int MySqlPort = 33060;
 
 namespace db
@@ -17,7 +19,11 @@ namespace db
 			db_config.database_name.c_str(), MySqlPort, nullptr, 0) == nullptr)
 		{
 			auto error = mysql_error(connection);
-			fprintf(stderr, "%s\n", error);
+			if (error != nullptr)
+			{
+				std::cerr << error << "\n";
+			}
+			
 			mysql_close(connection);
 			return false;
 		}
@@ -26,20 +32,20 @@ namespace db
 
 	std::string Database::query(const std::string& query) const
 	{
-		if (mysql_query(connection, query.c_str()))
+		if (mysql_query(connection, query.c_str()) != 0)
 		{
 			auto error = mysql_error(connection);
 			if (error != nullptr)
 			{
-				fprintf(stderr, "%s\n", error);
-				return "";
+				std::cerr << error << "\n";
 			}
+			return "";
 		}
 
 		MYSQL_RES* result = mysql_store_result(connection);
 		if (!result)
 		{
-			return  "Executed query";
+			return  "";
 		}
 
 		int num_fields = mysql_num_fields(result);
