@@ -33,8 +33,8 @@ std::vector<paste_data_content> pb_crawler::crawlPastes()
 	{
 		data.emplace_back(paste_data_content{ p.id,
 			p.title,
-			p.paste_language,
 			p.elapsed_time,
+			p.paste_language,
 			getPasteContent(p).str() });
 	}
 
