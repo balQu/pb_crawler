@@ -7,8 +7,11 @@ Crawler::~Crawler()
 	curl_easy_cleanup(curl);
 }
 
-// see https://stackoverflow.com/questions/9786150/save-curl-content-result-into-a-string-in-c
-static size_t WriteCallback(char* data, size_t size, size_t nmemb,
+// see
+// https://stackoverflow.com/questions/9786150/save-curl-content-result-into-a-string-in-c
+static size_t WriteCallback(char* data,
+	size_t size,
+	size_t nmemb,
 	std::stringstream& writerData)
 {
 	writerData.write(data, size * nmemb);
@@ -27,7 +30,8 @@ std::stringstream Crawler::crawl() const
 		throw std::exception{ "Couldn't initialize cURL." };
 	}
 
-#pragma warning(suppress : 26812) // curl still uses enum instead of enum class (C lib)
+// curl still uses enum instead of enum class (C lib)
+#pragma warning(suppress : 26812)
 	CURLcode res{};
 	std::stringstream response{};
 	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());

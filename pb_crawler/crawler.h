@@ -10,8 +10,9 @@ class Crawler
 private:
 	CURL* curl{ curl_easy_init() };
 	std::string url{};
+
 public:
-	explicit Crawler(const std::string& url) : url{ url } { }
+	explicit Crawler(const std::string& url) : url{ url } {}
 	~Crawler();
 
 	Crawler(const Crawler& other) = delete;
@@ -20,5 +21,8 @@ public:
 	Crawler& operator=(const Crawler&& other) = delete;
 
 	std::stringstream crawl() const;
-	void setUrl(const std::string& url) { this->url = url; }
+	void setUrl(const std::string& url)
+	{
+		this->url = url;
+	}
 };

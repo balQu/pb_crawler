@@ -17,6 +17,7 @@ private:
 	std::vector<paste_data_content> data{};
 
 	std::stringstream getPasteContent(const paste_data& d);
+
 public:
 	std::vector<paste_data_content> crawlPastes();
 };
