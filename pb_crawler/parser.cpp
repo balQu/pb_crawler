@@ -3,7 +3,7 @@
 #include <exception>
 #include <iostream>
 
-bool Parser::parse()
+auto Parser::parse() -> bool
 {
   // set input position at the start of our paste table
   auto table_position = html_stream.str().find("<table");
