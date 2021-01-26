@@ -15,13 +15,34 @@ auto findPaste(const std::string& id) -> bool
 	return !result.empty();
 }
 
-auto addPaste(const paste_data_content& d) -> bool
+auto insertPaste(const paste_data_content& d) -> bool
 {
 	std::string sql_insert = "INSERT INTO pastes VALUES('" + d.id + "', '"
 							 + d.paste_language + "', '" + d.title + "', '"
 							 + d.content + "')";
 	auto result = db::Database::getInstance().query(sql_insert);
 	return !result.empty();
+}
+
+auto addPaste(paste_data_content& p) -> void
+{
+	if (p.content.empty())
+	{
+		return;
+	}
+
+	std::replace(std::begin(p.content), std::end(p.content), '\'', '\"');
+	std::replace(std::begin(p.title), std::end(p.title), '\'', '\"');
+
+	if (findPaste(p.id))
+	{
+		return;
+	}
+
+	if (insertPaste(p))
+	{
+		std::cout << "Added paste (id: " << p.id << ") to database.\n";
+	}
 }
 
 auto main() -> int
@@ -50,30 +71,8 @@ auto main() -> int
 		std::cout << "fetching recent pastes...\n";
 		auto pastes = crawler.crawlPastes();
 
-		for (auto& p : pastes)
-		{
-			// TODO: early return if id is already visited (keep track in a
-			// vector<string> visited ids?)
+		std::for_each(std::begin(pastes), std::end(pastes), addPaste);
 
-			if (p.content.empty())
-			{
-				continue;
-			}
-
-			std::replace(
-				std::begin(p.content), std::end(p.content), '\'', '\"');
-			std::replace(std::begin(p.title), std::end(p.title), '\'', '\"');
-
-			if (findPaste(p.id))
-			{
-				continue;
-			}
-
-			if (addPaste(p))
-			{
-				std::cout << "Added paste (id: " << p.id << ") to database.\n";
-			}
-		}
 		std::cout << "waiting " << waittime.count() << " seconds...\n";
 		std::this_thread::sleep_for(waittime);
 	}
