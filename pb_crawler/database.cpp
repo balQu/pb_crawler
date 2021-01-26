@@ -5,13 +5,13 @@
 constexpr int MySqlPort = 33060;
 
 namespace db {
-Database& Database::getInstance()
+/*static*/ auto Database::getInstance() -> Database&
 {
 	static Database instance{};
 	return instance;
 }
 
-bool Database::connect() const
+auto Database::connect() const -> bool
 {
 	if (mysql_real_connect(connection,
 			db_config.host.c_str(),
@@ -35,7 +35,7 @@ bool Database::connect() const
 	return true;
 }
 
-std::string Database::query(const std::string& query) const
+auto Database::query(const std::string& query) const -> std::string
 {
 	if (mysql_query(connection, query.c_str()) != 0)
 	{

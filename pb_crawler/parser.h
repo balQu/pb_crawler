@@ -20,13 +20,13 @@ private:
 
 public:
 	Parser(std::stringstream stream) : html_stream{ std::move(stream) } {}
-	std::vector<paste_data> getParsed_data() const
+	auto getParsed_data() const -> std::vector<paste_data>
 	{
 		return parsed_data;
 	}
-	void setHtmlStream(std::stringstream stream)
+	auto setHtmlStream(std::stringstream stream) -> void
 	{
 		html_stream = std::move(stream);
 	}
-	bool parse();
+	auto parse() -> bool;
 };

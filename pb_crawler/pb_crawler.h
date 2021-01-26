@@ -16,8 +16,8 @@ private:
 	Crawler crawler{ "https://pastebin.com/archive" };
 	std::vector<paste_data_content> data{};
 
-	std::stringstream getPasteContent(const paste_data& d);
+	auto getPasteContent(const paste_data& d) -> std::stringstream;
 
 public:
-	std::vector<paste_data_content> crawlPastes();
+	auto crawlPastes() -> std::vector<paste_data_content>;
 };

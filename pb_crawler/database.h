@@ -27,15 +27,15 @@ private:
 
 public:
 	Database(const Database& other) = delete;
-	Database& operator=(const Database& other) = delete;
+	auto operator=(const Database& other) -> Database& = delete;
 
-	void setConfig(const config& db_config) noexcept
+	auto setConfig(const config& db_config) noexcept -> void
 	{
 		this->db_config = db_config;
 	}
-	bool connect() const;
-	std::string query(const std::string& query) const;
-	static Database& getInstance();
+	auto connect() const -> bool;
+	auto query(const std::string& query) const -> std::string;
+	static auto getInstance() -> Database&;
 };
 
 }// namespace db

@@ -16,12 +16,12 @@ public:
 	~Crawler();
 
 	Crawler(const Crawler& other) = delete;
-	Crawler& operator=(const Crawler& other) = delete;
+	auto operator=(const Crawler& other) -> Crawler& = delete;
 	Crawler(const Crawler&& other) = delete;
-	Crawler& operator=(const Crawler&& other) = delete;
+	auto operator=(const Crawler&& other) -> Crawler& = delete;
 
-	std::stringstream crawl() const;
-	void setUrl(const std::string& url)
+	auto crawl() const -> std::stringstream;
+	auto setUrl(const std::string& url) -> void
 	{
 		this->url = url;
 	}
