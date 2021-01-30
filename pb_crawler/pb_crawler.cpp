@@ -7,8 +7,15 @@ constexpr auto PasteBinUrlArchive = "https://pastebin.com/archive";
 
 auto pb_crawler::getPasteContent(const paste_data& d) -> std::stringstream
 {
-	crawler.setUrl(PasteBinUrlRaw + d.id);
-	return crawler.crawl();
+	try
+	{
+		return Crawler::crawl(PasteBinUrlRaw + d.id);
+	}
+	catch (const std::exception& exc)
+	{
+		std::cout << exc.what() << "\n";
+		return {};
+	}
 }
 
 auto pb_crawler::crawlPastes() -> std::vector<paste_data_content>
@@ -16,8 +23,7 @@ auto pb_crawler::crawlPastes() -> std::vector<paste_data_content>
 	std::vector<paste_data> foundPastes{};
 	try
 	{
-		crawler.setUrl(PasteBinUrlArchive);
-		Parser parser{ crawler.crawl() };
+		Parser parser{ Crawler::crawl("https://pastebin.com/archive") };
 		if (parser.parse())
 		{
 			foundPastes = parser.getParsed_data();

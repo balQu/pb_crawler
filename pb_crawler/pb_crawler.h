@@ -13,7 +13,6 @@ struct paste_data_content : public paste_data
 class pb_crawler
 {
 private:
-	Crawler crawler{ "https://pastebin.com/archive" };
 	std::vector<paste_data_content> data{};
 
 	auto getPasteContent(const paste_data& d) -> std::stringstream;
