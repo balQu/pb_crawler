@@ -15,8 +15,6 @@ class pb_crawler
 private:
 	std::vector<paste_data_content> data{};
 
-	auto getPasteContent(const paste_data& d) -> std::stringstream;
-
 public:
 	auto crawlPastes() -> std::vector<paste_data_content>;
 };

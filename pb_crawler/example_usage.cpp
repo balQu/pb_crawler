@@ -47,6 +47,7 @@ auto addPaste(paste_data_content& p) -> void
 
 auto main() -> int
 {
+	curl_global_init(CURL_GLOBAL_DEFAULT);
 	db::Database::getInstance().setConfig(
 		{ "localhost", "root", "", "pastes" });
 	if (!db::Database::getInstance().connect())
@@ -64,11 +65,9 @@ auto main() -> int
 
 	while (true)
 	{
-#ifdef _DEBUG
-		std::cout << "refreshing...\n";
-#endif// _DEBUG
-
 		std::cout << "fetching recent pastes...\n";
+
+		// TODO: "data" of crawler stacks up on each iteration...
 		auto pastes = crawler.crawlPastes();
 
 		std::for_each(std::begin(pastes), std::end(pastes), addPaste);
