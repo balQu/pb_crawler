@@ -21,9 +21,6 @@
     <ClCompile Include="parser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="database.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="example_usage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -36,9 +33,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="crawler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="database.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pb_crawler.h">

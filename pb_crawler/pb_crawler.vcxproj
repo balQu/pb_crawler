@@ -102,19 +102,18 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\external\curl\include;$(ProjectDir)..\external\mariadb-connector-c-3.1\include;$(ProjectDir)..\external\mariadb-connector-c-3.1\bin\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\external\curl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\external\cURL_binary\$(Configuration);$(ProjectDir)..\external\mariadb-connector-c-3.1\bin\libmariadb\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libcurl-d.lib;libmariadb.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\external\cURL_binary\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libcurl-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>XCopy $(ProjectDir)..\external\cURL_binary\$(Configuration) $(OutputPath) /y /i
-XCopy $(ProjectDir)..\external\mariadb-connector-c-3.1\bin\libmariadb\$(Configuration)\libmariadb.dll $(OutputPath) /y /i</Command>
+      <Command>XCopy $(ProjectDir)..\external\cURL_binary\$(Configuration) $(OutputPath) /y /i</Command>
     </PreBuildEvent>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
@@ -147,7 +146,7 @@ XCopy $(ProjectDir)..\external\mariadb-connector-c-3.1\bin\libmariadb\$(Configur
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\external\curl\include;$(ProjectDir)..\external\mariadb-connector-c-3.1\include;$(ProjectDir)..\external\mariadb-connector-c-3.1\bin\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\external\curl\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <DisableSpecificWarnings>4996;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
@@ -155,24 +154,21 @@ XCopy $(ProjectDir)..\external\mariadb-connector-c-3.1\bin\libmariadb\$(Configur
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(ProjectDir)..\external\cURL_binary\$(Configuration);$(ProjectDir)..\external\mariadb-connector-c-3.1\bin\libmariadb\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libcurl.lib;libmariadb.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)..\external\cURL_binary\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libcurl.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>XCopy $(ProjectDir)..\external\cURL_binary\$(Configuration) $(OutputPath) /y /i
-XCopy $(ProjectDir)..\external\mariadb-connector-c-3.1\bin\libmariadb\$(Configuration)\libmariadb.dll $(OutputPath) /y /i</Command>
+      <Command>XCopy $(ProjectDir)..\external\cURL_binary\$(Configuration) $(OutputPath) /y /i</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="crawler.cpp" />
-    <ClCompile Include="database.cpp" />
     <ClCompile Include="example_usage.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="pb_crawler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crawler.h" />
-    <ClInclude Include="database.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="pb_crawler.h" />
   </ItemGroup>
