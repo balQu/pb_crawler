@@ -4,17 +4,13 @@
 #include "parser.h"
 
 #include <vector>
-
-struct paste_data_content : public paste_data
-{
-	std::string content{};
-};
+#include <utility>
 
 class pb_crawler
 {
 private:
-	std::vector<paste_data_content> data{};
+	std::vector<paste_data> data{};
 
 public:
-	auto crawlPastes() -> std::vector<paste_data_content>;
+	auto crawlPastes() -> std::vector<paste_data>;
 };

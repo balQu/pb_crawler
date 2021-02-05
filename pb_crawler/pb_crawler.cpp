@@ -45,7 +45,7 @@ auto pb_crawler::crawlPastes() -> std::vector<paste_data>
 				auto content = Crawler::crawl(PasteBinUrlRaw + p.id).str();
 
 				std::scoped_lock lock{ data_mutex };
-				data.emplace_back(paste_data_content{
+				data.emplace_back(paste_data{
 					p.id, p.title, p.elapsed_time, p.paste_language, content });
 			}
 		});

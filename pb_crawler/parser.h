@@ -11,6 +11,7 @@ struct paste_data
 	std::string title{};
 	std::string elapsed_time{};
 	std::string paste_language{};
+	std::string content{};
 };
 
 class Parser
