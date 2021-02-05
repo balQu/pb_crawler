@@ -3,21 +3,21 @@
 #include <iostream>
 #include <thread>
 #include <mutex>
+#include <queue>
 
 constexpr auto PasteBinUrlRaw = "https://pastebin.com/raw/";
 constexpr auto PasteBinUrlArchive = "https://pastebin.com/archive";
 constexpr auto threadCount = 25;
 
-auto pb_crawler::crawlPastes() -> std::vector<paste_data_content>
+auto pb_crawler::crawlPastes() -> std::vector<paste_data>
 {
-	// TODO: should be a std::queue
-	std::vector<paste_data> foundPastes{};
+	std::queue<paste_data> paste_queue{};
 	try
 	{
 		Parser parser{ Crawler::crawl("https://pastebin.com/archive") };
 		if (parser.parse())
 		{
-			foundPastes = parser.getParsed_data();
+			paste_queue = parser.getPasteQueue();
 		}
 	}
 	catch (const std::exception& exc)
@@ -27,20 +27,19 @@ auto pb_crawler::crawlPastes() -> std::vector<paste_data_content>
 	}
 
 	std::vector<std::thread> threads;
-	std::mutex foundPastes_mutex{};
+	std::mutex paste_queue_mutex{};
 	std::mutex data_mutex{};
 
 	for (size_t i = 0; i < threadCount; ++i)
 	{
 		threads.emplace_back([&]() {
-			while (!foundPastes.empty())
+			while (!paste_queue.empty())
 			{
 				paste_data p;
 				{
-					std::scoped_lock lock{ foundPastes_mutex };
-					// TODO: should be a std::queue
-					p = foundPastes.back();
-					foundPastes.pop_back();
+					std::scoped_lock lock{ paste_queue_mutex };
+					p = paste_queue.front();
+					paste_queue.pop();
 				}
 
 				auto content = Crawler::crawl(PasteBinUrlRaw + p.id).str();

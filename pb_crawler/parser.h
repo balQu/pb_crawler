@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <queue>
 
 struct paste_data
 {
@@ -15,18 +16,21 @@ struct paste_data
 class Parser
 {
 private:
-	std::vector<paste_data> parsed_data{};
+	std::queue<paste_data> parsed_data_queue{};
 	std::stringstream html_stream{};
 
 public:
 	Parser(std::stringstream stream) : html_stream{ std::move(stream) } {}
-	auto getParsed_data() const -> std::vector<paste_data>
+
+	auto getPasteQueue() const -> std::queue<paste_data>
 	{
-		return parsed_data;
+		return parsed_data_queue;
 	}
+
 	auto setHtmlStream(std::stringstream stream) -> void
 	{
 		html_stream = std::move(stream);
 	}
+
 	auto parse() -> bool;
 };

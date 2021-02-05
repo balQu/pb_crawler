@@ -65,7 +65,7 @@ auto Parser::parse() -> bool
 
 		// TODO: add correct timestamp instead of a dumb "elapsed time"
 		// stamp
-		parsed_data.emplace_back(
+		parsed_data_queue.emplace(
 			paste_data{ id, title, timestamp, paste_language });
 	}
 
