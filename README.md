@@ -3,7 +3,7 @@ Pastebin Crawler
 
 A little tool to crawl the 50 recent pastebin pastes (www.pastebin.com/archive).
 
-For example usage look at pb_crawler/pb_crawler/example_usage.cpp.
+For example usage look [here](pb_crawler/example_usage.cpp).
 
 Currently it will get the following data from each paste:
 - paste id
