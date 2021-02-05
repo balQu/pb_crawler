@@ -1,5 +1,6 @@
-#include "curl/curl.h"
 #include "pb_crawler.h"
+
+#include "curl/curl.h"
 
 #include <algorithm>
 #include <chrono>
