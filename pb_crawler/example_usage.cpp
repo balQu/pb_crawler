@@ -1,3 +1,4 @@
+#include "curl/curl.h"
 #include "pb_crawler.h"
 
 #include <algorithm>
@@ -17,6 +18,7 @@ auto main() -> int
 		std::cout << "fetching recent pastes...\n";
 
 		// TODO: "data" of crawler stacks up on each iteration...
+		// only add pastes which aren't already added
 		auto pastes = crawler.crawlPastes();
 
 		std::cout << "waiting " << waittime.count() << " seconds...\n";

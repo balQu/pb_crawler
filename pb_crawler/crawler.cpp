@@ -1,7 +1,10 @@
+#include "curl/curl.h"
+
 #include "crawler.h"
 
 #include <exception>
 
+namespace {
 // see
 // https://stackoverflow.com/questions/9786150/save-curl-content-result-into-a-string-in-c
 static auto WriteCallback(char* data,
@@ -12,6 +15,8 @@ static auto WriteCallback(char* data,
 	writerData.write(data, size * nmemb);
 	return size * nmemb;
 }
+
+}// namespace
 
 auto Crawler::crawl(const std::string& url) -> std::stringstream
 {
