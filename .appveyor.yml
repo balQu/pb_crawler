@@ -1,0 +1,17 @@
+version: 1.0.{build}
+init:
+- ps: ''
+install:
+- ps: >-
+    cd C:\Tools\vcpkg
+
+    git pull
+
+    .\bootstrap-vcpkg.bat
+
+    .\vcpkg install curl:x64-windows
+
+    vcpkg integrate install
+cache: c:\tools\vcpkg\installed\
+build:
+  verbosity: minimal

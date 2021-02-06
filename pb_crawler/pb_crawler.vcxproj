@@ -113,7 +113,8 @@
       <AdditionalDependencies>libcurl-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>XCopy $(ProjectDir)..\external\cURL_binary\$(Configuration) $(OutputPath) /y /i</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <ProjectReference>
       <LinkLibraryDependencies>false</LinkLibraryDependencies>
