@@ -2,7 +2,8 @@
 
 Branch|[![AppVeyor logo](pics/AppVeyor.png)](https://appveyor.com)
 ---|---
-master|[![Build status](https://ci.appveyor.com/api/projects/status/58mx8y3mae0svip2/branch/master?svg=true)](https://ci.appveyor.com/project/SebastianBecker2/pb-crawler/branch/master)
+master|[![Build status](https://ci.appveyor.com/api/projects/status/6709v06me3dg934x/branch/master?svg=true)](https://ci.appveyor.com/project/balQu/pb-crawler/branch/master)
+
 
 Pastebin Crawler
 
