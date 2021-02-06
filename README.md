@@ -1,4 +1,9 @@
 # pb_crawler
+
+Branch|[![AppVeyor logo](pics/AppVeyor.png)](https://appveyor.com)
+---|---
+master|[![Build status](https://ci.appveyor.com/api/projects/status/58mx8y3mae0svip2/branch/master?svg=true)](https://ci.appveyor.com/project/SebastianBecker2/pb-crawler/branch/master)
+
 Pastebin Crawler
 
 A little tool to crawl the 50 recent pastebin pastes (www.pastebin.com/archive).
