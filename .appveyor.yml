@@ -12,8 +12,6 @@ install:
     .\vcpkg install curl:x64-windows
 
     vcpkg integrate install
-
-    cd %APPVEYOR_BUILD_FOLDER%
 cache: c:\tools\vcpkg\installed\
 build:
   verbosity: minimal
