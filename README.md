@@ -1,5 +1,6 @@
 # pb_crawler
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/02ea38e314154861a32100aeccc2e98b)](https://app.codacy.com/gh/balQu/pb_crawler?utm_source=github.com&utm_medium=referral&utm_content=balQu/pb_crawler&utm_campaign=Badge_Grade_Settings)
 Branch|[![AppVeyor logo](pics/AppVeyor.png)](https://appveyor.com)
 ---|---
 master|[![Build status](https://ci.appveyor.com/api/projects/status/6709v06me3dg934x/branch/master?svg=true)](https://ci.appveyor.com/project/balQu/pb-crawler/branch/master)
