@@ -1,8 +1,6 @@
 # pb_crawler
-
-Branch|[![AppVeyor logo](pics/AppVeyor.png)](https://appveyor.com)
----|---
-master|[![Build status](https://ci.appveyor.com/api/projects/status/6709v06me3dg934x/branch/master?svg=true)](https://ci.appveyor.com/project/balQu/pb-crawler/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/6709v06me3dg934x/branch/master?svg=true)](https://ci.appveyor.com/project/balQu/pb-crawler/branch/master)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/1d6e9c26e17d49f4a0a448d17f2ad0ff)](https://www.codacy.com/gh/balQu/pb_crawler/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=balQu/pb_crawler&amp;utm_campaign=Badge_Grade)
 
 Pastebin Crawler
 
