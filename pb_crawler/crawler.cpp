@@ -47,8 +47,8 @@ auto Crawler::crawl(const std::string& url) -> std::stringstream
 	}
 	catch (const std::exception& exc)
 	{
-		throw exc;
 		curl_easy_cleanup(curl);
+		throw;
 	}
 
 	curl_easy_cleanup(curl);
