@@ -14,7 +14,7 @@ auto pb_crawler::crawlPastes() -> std::vector<paste_data>
 	std::queue<paste_data> paste_queue{};
 	try
 	{
-		parser parser{ crawler::crawl("https://pastebin.com/archive") };
+		parser parser{ crawler::crawl(PasteBinUrlArchive) };
 		if (parser.parse())
 		{
 			paste_queue = parser.getPasteQueue();
