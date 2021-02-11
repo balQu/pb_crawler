@@ -18,7 +18,7 @@ static auto WriteCallback(char* data,
 
 }// namespace
 
-auto Crawler::crawl(const std::string& url) -> std::stringstream
+auto crawler::crawl(const std::string& url) -> std::stringstream
 {
 	if (url.empty())
 	{
@@ -45,7 +45,7 @@ auto Crawler::crawl(const std::string& url) -> std::stringstream
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
 		res = curl_easy_perform(curl);
 	}
-	catch (const std::exception& exc)
+	catch (const std::exception&)
 	{
 		curl_easy_cleanup(curl);
 		throw;

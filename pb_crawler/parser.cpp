@@ -3,7 +3,7 @@
 #include <exception>
 #include <iostream>
 
-auto Parser::parse() -> bool
+auto parser::parse() -> bool
 {
 	// set input position at the start of our paste table
 	auto table_position = html_stream.str().find("<table");
@@ -29,9 +29,9 @@ auto Parser::parse() -> bool
 		}
 
 		// get ID of paste
-		std::string endOfTag = "\">";
-		auto id_end = line.find(endOfTag);
-		id_end = line.find(endOfTag, id_end + 1);
+		std::string end_of_tag = "\">";
+		auto id_end = line.find(end_of_tag);
+		id_end = line.find(end_of_tag, id_end + 1);
 		std::string id = line.substr(id_pos + openedTagA.length() + 1,
 			id_end - (id_pos + openedTagA.length() + 1));
 
@@ -43,8 +43,8 @@ auto Parser::parse() -> bool
 
 		// get title of paste
 		auto title_end = line.find("</a>");
-		std::string title = line.substr(id_end + endOfTag.length(),
-			title_end - (id_end + endOfTag.length()));
+		std::string title = line.substr(id_end + end_of_tag.length(),
+			title_end - (id_end + end_of_tag.length()));
 
 		// get paste time
 		std::string next_line{};

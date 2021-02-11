@@ -14,14 +14,14 @@ struct paste_data
 	std::string content{};
 };
 
-class Parser
+class parser
 {
 private:
 	std::queue<paste_data> parsed_data_queue{};
 	std::stringstream html_stream{};
 
 public:
-	Parser(std::stringstream stream) : html_stream{ std::move(stream) } {}
+	parser(std::stringstream stream) : html_stream{ std::move(stream) } {}
 
 	auto getPasteQueue() const -> std::queue<paste_data>
 	{
