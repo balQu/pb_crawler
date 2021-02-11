@@ -1,4 +1,8 @@
+#define COMPILING_DLL
+
 #include "pb_crawler.h"
+
+#include <curl/curl.h>
 
 #include <iostream>
 #include <thread>
@@ -8,6 +12,16 @@
 constexpr auto PasteBinUrlRaw = "https://pastebin.com/raw/";
 constexpr auto PasteBinUrlArchive = "https://pastebin.com/archive";
 constexpr auto ThreadCount = 25;
+
+auto pb_crawler::init() -> void
+{
+	curl_global_init(CURL_GLOBAL_DEFAULT);
+}
+
+auto pb_crawler::cleanup() -> void
+{
+	curl_global_cleanup();
+}
 
 auto pb_crawler::crawlPastes() -> std::vector<paste_data>
 {
