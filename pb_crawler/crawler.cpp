@@ -18,7 +18,7 @@ static auto WriteCallback(char* data,
 
 }// namespace
 
-auto Crawler::crawl(const std::string& url) -> std::stringstream
+auto crawler::crawl(const std::string& url) -> std::stringstream
 {
 	if (url.empty())
 	{
