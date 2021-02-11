@@ -29,6 +29,7 @@ auto pb_crawler::crawlPastes() -> std::vector<paste_data>
 	std::vector<std::thread> threads;
 	std::mutex paste_queue_mutex{};
 	std::mutex data_mutex{};
+	std::vector<paste_data> data;
 
 	for (size_t i = 0; i < threadCount; ++i)
 	{

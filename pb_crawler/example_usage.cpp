@@ -11,15 +11,12 @@ static constexpr std::chrono::seconds waittime{ 60 };
 auto main() -> int
 {
 	curl_global_init(CURL_GLOBAL_DEFAULT);
-	pb_crawler crawler{};
 
 	while (true)
 	{
 		std::cout << "fetching recent pastes...\n";
 
-		// TODO: "data" of crawler stacks up on each iteration...
-		// only add pastes which aren't already added
-		auto pastes = crawler.crawlPastes();
+		auto pastes = pb_crawler::crawlPastes();
 
 		std::cout << "waiting " << waittime.count() << " seconds...\n";
 		std::this_thread::sleep_for(waittime);

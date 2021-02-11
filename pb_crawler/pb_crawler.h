@@ -8,9 +8,6 @@
 
 class pb_crawler
 {
-private:
-	std::vector<paste_data> data{};
-
 public:
-	auto crawlPastes() -> std::vector<paste_data>;
+	static auto crawlPastes() -> std::vector<paste_data>;
 };
