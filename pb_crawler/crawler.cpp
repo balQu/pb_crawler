@@ -2,7 +2,7 @@
 
 #include "crawler.h"
 
-#include <exception>
+#include <stdexcept>
 
 namespace {
 // see
@@ -22,13 +22,13 @@ auto crawler::crawl(const std::string& url) -> std::stringstream
 {
 	if (url.empty())
 	{
-		throw std::exception{ "Url is missing." };
+		throw std::runtime_error{ "Url is missing." };
 	}
 
 	CURL* curl{ curl_easy_init() };
 	if (!curl)
 	{
-		throw std::exception{ "Couldn't initialize cURL." };
+		throw std::runtime_error{ "Couldn't initialize cURL." };
 	}
 
 	// curl still uses enum instead of enum class (C lib)
@@ -55,7 +55,7 @@ auto crawler::crawl(const std::string& url) -> std::stringstream
 
 	if (res != CURLE_OK)
 	{
-		throw std::exception{ "Couldn't perform the request." };
+		throw std::runtime_error{ "Couldn't perform the request." };
 	}
 	return response;
 }
